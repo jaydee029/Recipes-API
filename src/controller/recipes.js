@@ -1,4 +1,4 @@
-const services=require('../services/recipes.js')
+const services=require('../services/recipequeries.js')
 
 const recipeExists=async(req,res,next)=>{
     

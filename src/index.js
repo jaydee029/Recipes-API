@@ -5,6 +5,7 @@ const usersrouter=require("./router/users.js")
 const handleError=require("./utils/error")
 const app=express()
 const cors= require("cors")
+const path=require("path")
 require("dotenv").config({path:path.join(__dirname,"../.env")})
 
 
@@ -20,14 +21,14 @@ app.use(express.urlencoded({ extended: true }));
 const publicdir=path.join(__dirname,"./public")
 app.use(express.static(publicdir))
 
-app.get("/:id", (req, res) => {
-    res.redirect(`/api/src/recipes/${req.params.id}`);
+app.get("/", (req, res) => {
+    res.redirect(`/api/src/recipes`);
 });
 
 app.use('/api/src/recipes',recipesrouter)
 app.use('/api/src/users',usersrouter)
 app.use(auth.initialize())
-app.use(handleError)
+//app.use(handleError)
 const port =process.env.PORT ||8080
 
 app.listen(port,()=>{

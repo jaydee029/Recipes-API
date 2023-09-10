@@ -1,8 +1,8 @@
-require("dotenv").config;
-const path=require("path")
-const bcrypt=require("bcrypt")
-const fs=require("fs").promises
-const jwt=require("jsonwebtoken")
+const path=require("path");
+const bcrypt=require("bcrypt");
+const fs=require("fs").promises;
+const jwt=require("jsonwebtoken");
+require("dotenv").config({path:path.join(__dirname,"../../.env")});
 //const { writeFile } = require("fs")
 
 
@@ -19,7 +19,7 @@ const findUser=async({id , email})=>{
 }
 
 const authenticate=async({id,email,password})=>{
-    const user=find({email})
+    const user=findUser({email})
 
     const ispassword= await bcrypt.compare(password,user.password)
 

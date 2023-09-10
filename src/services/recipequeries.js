@@ -8,7 +8,7 @@ const getRecipes=async()=>{
 }
 
 const get =async(id)=>{
-    const res= await pool.query("SELECT * FORM recipes WHERE id=$1",[id])
+    const res= await pool.query("SELECT * FROM recipes WHERE userid=$1",[id])
     return res.rows
 }
 
@@ -25,7 +25,7 @@ const update=async(id,updated)=>{
 }
 
 const remove=async(id)=>{
-    const res=await pool.query("DELETE FROM recipes WHERE id=$1",[id])
+    const res=await pool.query("DELETE FROM recipes WHERE userid=$1",[id])
 }
 
 
