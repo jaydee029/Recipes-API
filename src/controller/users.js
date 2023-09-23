@@ -1,4 +1,4 @@
-const {findUser, authenticate, create}=require("../services/users");
+const {findUser, authenticate, create}=require("../services/userqueries");
 
 const handleSignup=async (req,res,next)=>{
     
@@ -7,6 +7,7 @@ const handleSignup=async (req,res,next)=>{
         const user=await findUser({email})
 
         if(user){
+            console.log(user)
             throw new Error("user already exists")
         }
 
@@ -29,9 +30,16 @@ const handleLogin=async (req,res,next)=>{
             throw new Error("User doesnt exist")
         }
 
-        const {token} =await authenticate({email,password})
+        const ispassword= await bcrypt.compare(password,user.password)
+        if (ispassword){
+            const {token} =await authenticate({email,password})
+            res.json({token})
+        }
+        else{
+            throw new Error("Wrong passord entered")
+        }
+
         
-        res.json({token})
     }catch(error){
         next(error)
     }
